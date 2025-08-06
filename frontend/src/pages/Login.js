@@ -37,7 +37,7 @@ export const Login = () => {
       console.log(data);
       localStorage.setItem("name", data.result.name);
       localStorage.setItem("role", data.result.role);
-      localStorage.setItem("bio", data.result.rio);
+      localStorage.setItem("bio", data.result.bio);
       localStorage.setItem("email", data.result.email);
       localStorage.setItem("id", data.result._id);
       localStorage.setItem("token", data.token);

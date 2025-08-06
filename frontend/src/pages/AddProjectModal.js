@@ -25,7 +25,7 @@ function AddProjectModal({ show, handleClose,handleCreate }) {
     console.log(formData)
     const token=localStorage.getItem('token')
     console.log(token)
-    const response = await fetch("http://localhost:8080/api/projects", {
+    const response = await fetch("https://project-explore-platform.vercel.app/api/projects", {
     method: "POST",
     body: JSON.stringify(formData),
     headers: {

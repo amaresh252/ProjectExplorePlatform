@@ -15,7 +15,7 @@ const [bio, setBio] = useState('');
    async function fetchData() {
         const token = localStorage.getItem("token");
         const id = localStorage.getItem("id");
-      const response = await fetch(`http://localhost:8080/api/projects/user/${id}`, {
+      const response = await fetch(`https://project-explore-platform.vercel.app/api/projects/user/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

@@ -7,7 +7,7 @@ function ProjectModal({ show, handleClose, project }) {
 
   async function addComment(comment) {
         const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:8080/api/projects/comment/${project._id}`, {
+      const response = await fetch(`https://project-explore-platform.vercel.app/api/projects/comment/${project._id}`, {
         method:'PUT',
         headers: {
           "Content-Type": "application/json",

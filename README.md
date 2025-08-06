@@ -1,4 +1,4 @@
-Bloggin Platform
+Project Hub Platform
 
 #Frontend Setup Instruction
 1. Go To Directory frontend

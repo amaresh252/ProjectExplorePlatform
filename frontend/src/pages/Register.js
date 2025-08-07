@@ -35,11 +35,14 @@ export const Register = () => {
       return;
     }
 
-    const response = await fetch("https://project-explore-platform.vercel.app/api/auth/register", {
-      method: "POST",
-      body: JSON.stringify({ name, username, password,role,bio }),
-      headers: { "content-type": "application/json" },
-    });
+    const response = await fetch(
+      "https://project-explore-platform.vercel.app/api/auth/register",
+      {
+        method: "POST",
+        body: JSON.stringify({ name, username, password, role, bio }),
+        headers: { "content-type": "application/json" },
+      }
+    );
     if (!response.ok) {
       console.log(response);
       errors.login = await response.json();
@@ -96,7 +99,7 @@ export const Register = () => {
                   )}
                 </div>
               </div>
-               <div className="row ">
+              <div className="row ">
                 <div className="col-md-3">
                   <label htmlFor="role">Role</label>
                 </div>
@@ -108,12 +111,10 @@ export const Register = () => {
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
                   />
-                  {errors.role && (
-                    <p className="text-danger">{errors.role}</p>
-                  )}
+                  {errors.role && <p className="text-danger">{errors.role}</p>}
                 </div>
               </div>
-               <div className="row ">
+              <div className="row ">
                 <div className="col-md-3">
                   <label htmlFor="bio">Bio</label>
                 </div>
@@ -125,9 +126,7 @@ export const Register = () => {
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                   />
-                  {errors.bio && (
-                    <p className="text-danger">{errors.bio}</p>
-                  )}
+                  {errors.bio && <p className="text-danger">{errors.bio}</p>}
                 </div>
               </div>
               <div className="row mt-4 mb-2">

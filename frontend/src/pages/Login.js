@@ -9,7 +9,6 @@ export const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     const errors = {};
     if (!username.trim()) {
       errors.username = "Username is required";
@@ -23,11 +22,14 @@ export const Login = () => {
       return;
     }
 
-    const response = await fetch("https://project-explore-platform.vercel.app/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ username, password }),
-      headers: { "content-type": "application/json" },
-    });
+    const response = await fetch(
+      "https://project-explore-platform.vercel.app/api/auth/login",
+      {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+        headers: { "content-type": "application/json" },
+      }
+    );
     if (!response.ok) {
       console.log(response);
       errors.login = await response.json();
@@ -44,6 +46,7 @@ export const Login = () => {
       navigate("/home");
     }
   };
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {

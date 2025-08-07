@@ -3,8 +3,8 @@ const { passwordValidation, generateToken } = require("../utils");
 
 exports.CreateUser = async (req, res) => {
   try {
-    const { username, password, name,role,bio } = req.body;
-    const user = new User({ email: username, password, name,role,bio });
+    const { username, password, name, role, bio } = req.body;
+    const user = new User({ email: username, password, name, role, bio });
     const doc = await user.save();
     const token = await generateToken(doc._id, doc.email, doc.name);
     console.log(token);

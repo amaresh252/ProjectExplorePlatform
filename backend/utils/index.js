@@ -33,9 +33,9 @@ module.exports.generateToken = async (userId, email, name) => {
 
 module.exports.isAuth = async (req, res, next) => {
   try {
-    console.log(req.headers)
+    console.log(req.headers);
     const signature = req.headers?.Authorization || req.headers?.authorization;
-    console.log(req.headers?.authorization)
+    console.log(req.headers?.authorization);
     if (!signature) {
       throw new Error("Unauthorized user");
     }

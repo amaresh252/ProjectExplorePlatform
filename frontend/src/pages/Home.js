@@ -5,56 +5,58 @@ import ProjectModal from "./ProjectModal";
 import AddProjectModal from "./AddProjectModal";
 
 export const Home = () => {
-
   const [projects, setProjects] = useState([]);
   const [allprojects, setAllProjects] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [show, setShow] = useState(false);
   const [errors, setErrors] = useState();
-  const [userName, setUserName] = useState('');
-   const navigate=useNavigate()
+  const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
+
   const [selectedProject, setSelectedProject] = useState({});
-  function handleProject(project,e){
-    setSelectedProject(project)
-    setShowModal(true)
+  function handleProject(project, e) {
+    setSelectedProject(project);
+    setShowModal(true);
   }
 
-   async function fetchData() {
-        const token = localStorage.getItem("token");
-      const response = await fetch("https://project-explore-platform.vercel.app/api/projects", {
+  async function fetchData() {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      "https://project-explore-platform.vercel.app/api/projects",
+      {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-      });
-      if (!response.ok) {
-        console.log(response);
-        const error = await response.json();
-        setErrors("Error in fetch All Project");
-      } else {
-        const data = await response.json();
-        setProjects(data.result);
-        setAllProjects(data.result)
-        console.log(data);
       }
+    );
+    if (!response.ok) {
+      console.log(response);
+      const error = await response.json();
+      setErrors("Error in fetch All Project");
+    } else {
+      const data = await response.json();
+      setProjects(data.result);
+      setAllProjects(data.result);
+      console.log(data);
     }
+  }
 
-function handleLogout(){
-localStorage.removeItem('token')
-localStorage.removeItem('name')
-localStorage.removeItem('email')
-localStorage.removeItem('role')
-localStorage.removeItem('bio')
-navigate('/')
-}
- 
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("name");
+    localStorage.removeItem("email");
+    localStorage.removeItem("role");
+    localStorage.removeItem("bio");
+    navigate("/");
+  }
+
   useEffect(() => {
-
-     if(!localStorage.getItem('token')){
-      navigate('/')
-     }
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    }
     fetchData();
-    setUserName(localStorage.getItem('name'))
+    setUserName(localStorage.getItem("name"));
   }, []);
 
   function onCreateProject() {
@@ -62,33 +64,32 @@ navigate('/')
   }
 
   function handleCreate(flag) {
-    setShow(false)
-    fetchData()
+    setShow(false);
+    fetchData();
   }
 
- function handleFilter(e){
-  e.preventDefault()
-   const search=e.target.value
-   if(!search.trim()){
-    setProjects(allprojects)
-   }else{
-    setProjects(allprojects.filter((project)=>project?.title===search||project.user.name===search))
-   }
+  function handleFilter(e) {
+    e.preventDefault();
+    const search = e.target.value;
+    if (!search.trim()) {
+      setProjects(allprojects);
+    } else {
+      setProjects(
+        allprojects.filter(
+          (project) => project?.title === search || project.user.name === search
+        )
+      );
+    }
   }
 
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3 px-4">
         <div className="container-fluid">
-          {/* Logo and Brand */}
-          <a
-            className="navbar-brand d-flex align-items-center fw-bold fs-4"
-            href="#"
-          >
+          <h1 className="navbar-brand d-flex align-items-center fw-bold fs-4">
             ProjectHub
-          </a>
+          </h1>
 
-          {/* Nav Links */}
           <div className="collapse navbar-collapse justify-content-center">
             <ul className="navbar-nav gap-3 align-items-center">
               <li className="nav-item">
@@ -104,7 +105,6 @@ navigate('/')
             </ul>
           </div>
 
-          {/* Search and User */}
           <div className="d-flex align-items-center gap-3">
             <div
               className="input-group bg-dark rounded"
@@ -112,7 +112,7 @@ navigate('/')
             >
               <input
                 type="text"
-                onChange={(e)=>handleFilter(e)}
+                onChange={(e) => handleFilter(e)}
                 className="form-control bg-secondary text-white border-0"
                 placeholder="Search"
                 aria-label="Search"
@@ -123,7 +123,9 @@ navigate('/')
             </div>
             <div className="d-flex align-items-center">
               <span className="text-white">{userName}</span>
-              <button onClick={handleLogout} className="btn btn-dark">Logout</button>
+              <button onClick={handleLogout} className="btn btn-dark">
+                Logout
+              </button>
             </div>
           </div>
         </div>
@@ -146,7 +148,6 @@ navigate('/')
                 >
                   Create Project
                 </button>
-                
               </div>
             </div>
             <div className="col-lg-6 d-none d-lg-block">
@@ -161,7 +162,6 @@ navigate('/')
       </section>
       <section className="py-5 bg-light">
         <div className="container">
-          {/* Section Heading */}
           <div className="mb-4">
             <h2 className="h3 fw-bold mb-1">Featured Projects</h2>
             <p className="text-muted">
@@ -169,13 +169,11 @@ navigate('/')
             </p>
           </div>
 
-          {/* Loading Placeholder */}
           {projects.length === 0 ? (
             <div className="text-center py-5">
               <p className="text-muted mb-3">
                 No projects found. Be the first to share your work!
               </p>
-              
             </div>
           ) : (
             <div className="row g-4">
@@ -193,7 +191,10 @@ navigate('/')
                           <h5 className="card-title">{project.title}</h5>
                           <p className="card-text">{project.description}</p>
                           <div className="d-flex align-item-center justify-content-between">
-                            <button onClick={(e)=>handleProject(project,e)} className="btn btn-dark">
+                            <button
+                              onClick={(e) => handleProject(project, e)}
+                              className="btn btn-dark"
+                            >
                               View Project
                             </button>
                             <p>

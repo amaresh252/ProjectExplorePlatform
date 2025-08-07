@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 
-function AddProjectModal({ show, handleClose,handleCreate }) {
+function AddProjectModal({ show, handleClose, handleCreate }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -10,47 +9,55 @@ function AddProjectModal({ show, handleClose,handleCreate }) {
     code_url: "",
     image_url: "",
   });
-  const [errors,setErrors]=useState(null)
+  const [errors, setErrors] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit =async () => {
-    setErrors(null)
-    if(!formData.title.trim()||!formData.description.trim()||!formData.live_url.trim()||!formData.code_url.trim()||!formData.image_url.trim()){
-    setErrors('Please Fill All Field')
-    return 
+  const onSubmit = async () => {
+    setErrors(null);
+    if (
+      !formData.title.trim() ||
+      !formData.description.trim() ||
+      !formData.live_url.trim() ||
+      !formData.code_url.trim() ||
+      !formData.image_url.trim()
+    ) {
+      setErrors("Please Fill All Field");
+      return;
     }
-    console.log(formData)
-    const token=localStorage.getItem('token')
-    console.log(token)
-    const response = await fetch("https://project-explore-platform.vercel.app/api/projects", {
-    method: "POST",
-    body: JSON.stringify(formData),
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+    console.log(formData);
+    const token = localStorage.getItem("token");
+    console.log(token);
+    const response = await fetch(
+      "https://project-explore-platform.vercel.app/api/projects",
+      {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     if (!response.ok) {
       console.log(response);
-    const  error = await response.json();
-    
-      setErrors('Error in Creating Project');
+      const error = await response.json();
+
+      setErrors("Error in Creating Project");
     } else {
       const data = await response.json();
       console.log(data);
-       handleCreate();
+      handleCreate();
     }
   };
-function handleHide(){
-  setErrors(null)
-  handleClose()
-}
+  function handleHide() {
+    setErrors(null);
+    handleClose();
+  }
   return (
     <Modal show={show} onHide={handleHide} size="lg" centered scrollable>
-      {/* Cross button */}
       <Modal.Header closeButton>
         <Modal.Title>Add New Project</Modal.Title>
       </Modal.Header>
@@ -130,7 +137,7 @@ function handleHide(){
         <Button variant="dark" onClick={onSubmit}>
           Create Project
         </Button>
-        {errors &&<p>{errors}</p>}
+        {errors && <p>{errors}</p>}
       </Modal.Footer>
     </Modal>
   );
